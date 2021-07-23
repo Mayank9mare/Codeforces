@@ -83,6 +83,28 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    ll n;
+    cin>>n;
+    if(n<9){
+        cout<<0<<endl;
+        return 0;
+    }
+    else{
+        ll p=n%10;
+        if(p!=9){
+            n-=p;
+            n--;
+        }
+        ll ans=0;
+        if(n<0){
+            ans=0;
+        }
+        else{
+        ans=n/10;
+        ans++;
+        }
+        cout<<ans<<endl;
+    }
     return 0;
 
 }
@@ -95,6 +117,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

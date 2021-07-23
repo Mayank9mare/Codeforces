@@ -83,6 +83,66 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    int n;
+    cin>>n;
+  
+    ll a[n];
+    ll b[n];
+    ll s1=0,s2=0;
+    for(int i=0;i<n;i++)cin>>a[i];
+    for(int i=0;i<n;i++)cin>>b[i];
+    //cout<<1<<endl;
+    for(int i=0;i<n;i++){
+        s1+=a[i];
+        s2+=b[i];
+    }
+ 
+    //cout<<1<<endl;
+    if(s1!=s2){
+        cout<<-1<<endl;
+        return 0;
+    }
+    vector<pll> l,r,ans;
+    int f=0;
+    for(int i=0;i<n;i++){
+       if(a[i]<b[i]){
+           l.pb({i,b[i]-a[i]});
+       }
+       else if(a[i]>b[i]){
+           r.pb({i,a[i]-b[i]});
+       }
+
+
+    
+         //cout<<a[i]<<sp<<b[i]<<endl;
+
+    }
+    int i=0,j=0;
+    while(i<l.size()&& j<r.size()){
+        int c=min(l[i].second,r[j].second);
+        for(int  k=0;k<c;k++){
+            ans.pb({l[i].first,r[j].first});
+        }
+        l[i].second-=c;
+        r[j].second-=c;
+        if(l[i].second==0)i++;
+        if(r[j].second==0)j++;
+
+    }
+    if(i==l.size() && j==r.size()){
+        cout<<ans.size()<<endl;
+        for(int i1=0;i1<ans.size();i1++){
+            cout<<ans[i1].second+1<<sp<<ans[i1].first+1<<endl;
+
+        }
+    }
+    else{
+        cout<<-1<<endl;
+    }
+
+
+  
+
     return 0;
 
 }
@@ -95,6 +155,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

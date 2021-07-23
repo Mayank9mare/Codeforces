@@ -74,7 +74,7 @@
 #define precision(x) cout << fixed << setprecision(x);
 #define gcd(a,b)    __gcd((a),(b))
 #define lcm(a,b)    ((a)*(b)) / gcd((a),(b))
-//#define endl "\n"
+#define endl "\n"
 const int dx[4]={1,0,0,-1}, dy[4]={0,1,-1,0};
 const int x_dir[]={-1,-1,-1,0,0,1,1,1};
 const int y_dir[]={-1,0,1,-1,1,-1,0,1};
@@ -83,6 +83,31 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    int n;
+    cin>>n;
+    n=2*n;
+    ll a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    int c1=0;
+    int c2=0;
+    for(int i=0;i<n;i++){
+        if(a[i]%2==0){
+            c1++;
+        }
+        else{
+            c2++;
+        }
+
+    }
+    if(c1==c2){
+        cout<<"Yes"<<endl;
+
+    }
+    else{
+        cout<<"No"<<endl;
+    }
     return 0;
 
 }
@@ -95,6 +120,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

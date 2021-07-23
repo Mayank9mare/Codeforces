@@ -83,6 +83,36 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+     ll n,x,k;
+    cin>>n>>k>>x;
+    if(n==1){
+        cout<<1<<endl;
+        return 0;
+    }
+    ll a[n];
+    for(int i=0;i<n;i++)cin>>a[i];
+    sort(a,a+n);
+    priority_queue<ll,vector<ll>,greater<ll>> pq;
+    for(int i=1;i<n;i++){
+        ll d=(a[i]-a[i-1]);
+        if(d>x){
+            ll p=(d-1)/x;
+            pq.push(p);
+        }
+
+    }
+    ll m=pq.size()+1;
+    while(pq.size()){
+        ll p=pq.top();
+        pq.pop();
+        if(k-p>=0){
+            k-=p;
+            m--;
+
+        }
+        if(k==0)break;
+    }
+    cout<<m<<endl;
     return 0;
 
 }
@@ -92,12 +122,7 @@ int main()
 {
 ios_base::sync_with_stdio(0);
 cin.tie(0);
-    int t;
-    cin>>t;
-    while(t--){
-        
-
-    }
+  solve();
 
 
     return 0;

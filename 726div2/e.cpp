@@ -83,6 +83,40 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    int n,k;
+    cin>>n>>k;
+    string s;
+    //string p=s;
+    cin>>s;
+    string ans=s;
+    string p="";
+    int n1;
+    for(int i=0;i<n;i++){
+        p+=s[i];
+        string p1=p;
+        n1=p1.size();
+        while(n1<=k){
+            p1+=p;
+            n1=p1.size();
+        }
+        //cout<<p1<<endl;
+        while(n1>k){
+            p1.pop_back();
+            n1=p1.size();
+        }
+        //cout<<p1<<endl;
+        if(i==0)ans=p1;
+        else
+        ans=min(ans,p1);
+    }
+    cout<<ans<<endl;
+        
+
+        
+
+
+    
+    //cout<<s<<endl;
     return 0;
 
 }
@@ -92,12 +126,7 @@ int main()
 {
 ios_base::sync_with_stdio(0);
 cin.tie(0);
-    int t;
-    cin>>t;
-    while(t--){
-        
-
-    }
+  solve();
 
 
     return 0;

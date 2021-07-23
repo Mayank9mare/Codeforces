@@ -83,6 +83,53 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    def(a,n);
+    set<int> s;
+    ll b[n]={0};
+    int prev[n];
+    int cur[n];
+    for(int i=0;i<n;i++){
+        if(s.find(a[i])==s.end()){
+            b[i]=a[i];
+            s.insert(a[i]);
+            cur[a[i]]=i;
+
+        }
+        else{
+            prev[i]=a[i];
+        }
+    }
+    queue<int> v;
+  
+    for(int i=1;i<=n;i++){
+        if(s.find(i)==s.end()){
+            v.push(i);
+            
+        }
+    }
+    for(int i=0;i<n;i++){
+        if(b[i]==0){
+            b[i]=v.front();
+            v.pop();
+            if(b[i]==i+1){
+                swap(b[cur[prev[i]]],b[i]);
+            }
+        }
+    }
+
+
+    int k=0;
+    for(int i=0;i<n;i++){
+        if(a[i]==b[i])k++;
+    }
+    cout<<k<<endl;
+    for(int i=0;i<n;i++){
+        cout<<b[i]<<sp;
+    }
+    nl;
+
+    
+
     return 0;
 
 }
@@ -95,6 +142,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

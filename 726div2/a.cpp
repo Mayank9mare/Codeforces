@@ -83,6 +83,23 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    def(a,n);
+    ll sum=0;
+    for(int i=0;i<n;i++){
+        sum+=a[i];
+
+    }
+    ll d=n-sum;
+    if(d>0){
+        cout<<1<<endl;
+    }
+    else if(d==0){
+        cout<<0<<endl;
+    }
+    else{
+        cout<<abs(d)<<endl;
+    }
+
     return 0;
 
 }
@@ -95,6 +112,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

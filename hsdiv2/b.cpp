@@ -83,6 +83,33 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    string s,t;
+    cin>>s;
+    cin>>t;
+    int n=s.size();
+    int m=t.size();
+    string r=s;
+    reverse(all(r));
+    int f=0;
+    for(int i=0;i<n;i++){
+        for(int j=1;j<=min(m,n-i);j++){
+            string p=s.substr(i,j);
+            int q=m-j;
+            string p2=r.substr(n-(i+j-1),q);
+            //cout<<p<<sp<<p2<<endl;
+            p+=p2;
+            if(p==t){
+                f=1;
+                break;
+            }
+        }
+    }
+    if(f){
+        cout<<"YES"<<endl;
+    }
+    else{
+        cout<<"NO"<<endl;
+    }
     return 0;
 
 }
@@ -95,6 +122,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

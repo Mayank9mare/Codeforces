@@ -81,8 +81,67 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
+int check(ll n,ll a,ll b,map<ll,ll> &m){
+    //cout<<n<<endl;
+    if(n<0)return 0;
+    if(n==1)return 1;
+   // if(m.find(n)!=m.end())return m[n];
+    int b1=0,b2=0;
+    if(n%a==0 && a!=1){
+        b1=check(n/a,a,b,m);
+    }
+    if(n-b>0){
+        b2=check(n-b,a,b,m);
+    }
+    if(b1==1 || b2==1){
+        return 1;
+    //return m[n]=1;
+    }
+    return 0;
+    //return m[n]=0;
+
+}
 
 int solve(){
+     ll n,a,b;
+    cin>>n>>a>>b;
+    if(n==1){
+        cout<<"Yes"<<endl;
+        return 0;
+    }
+    
+    ll p1=1;
+    int f=0;
+    if(a==1){
+        if((n-1)%b==0){
+            cout<<"Yes"<<endl;
+        }
+        else{
+            cout<<"No"<<endl;
+        }
+        return 0;
+    }
+    while(p1<=n){
+        ll p=n-p1;
+        if(p%b==0){
+            f=1;
+            break;
+        }
+        p1*=a;
+
+    }
+    if(f==1){
+        cout<<"Yes"<<endl;
+
+    }
+    else{
+        cout<<"No"<<endl;
+    }
+  
+
+
+  
+
     return 0;
 
 }
@@ -95,6 +154,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

@@ -81,9 +81,74 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
-
+long long compute_hash(string const& s) {
+    const int p = 31;
+    const int m = 1e9 + 9;
+    long long hash_value = 0;
+    long long p_pow = 1;
+    for (char c : s) {
+        hash_value = (hash_value + (c - 'a' + 1) * p_pow) % m;
+        p_pow = (p_pow * p) % m;
+    }
+    return hash_value;
+}
 int solve(){
-    return 0;
+    int n,m;
+    cin>>n>>m;
+    string s[n];
+
+    //ll a[n];
+    ll sum[m][26];
+    for(int i=0;i<m;i++){
+        for(int j=0;j<26;j++){
+            sum[i][j]=0;
+        }
+    }
+    ll p[26]={0};
+    mem0(sum);
+    for(int i=0;i<n;i++){
+        cin>>s[i];
+        
+        for(int j=0;j<m;j++){
+            sum[j][s[i][j]-'a']++;
+            //cout<<sum[i][s[i][j]-'a']<<endl;
+        
+            p[s[i][j]-'a']++;
+        }
+        
+
+        //a[i]=compute_hash(s[i]);
+    }
+    // for(int i=0;i<26;i++){
+    //     cout<<sum[2][i]<<sp;
+    // }
+    // nl;
+
+    string b[n-1];
+    ll c[n-1];
+    for(int i=0;i<n-1;i++){
+        cin>>b[i];
+        for(int j=0;j<m;j++){
+            sum[j][b[i][j]-'a']--;
+        }
+    
+        //c[i]=compute_hash(b[i]);
+    }
+//      for(int i=0;i<26;i++){
+//         cout<<p[i]<<sp;
+//     }
+//    nl;
+   string s1="";
+   for(int i=0;i<m;i++){
+       for(int j=0;j<26;j++){
+           if(sum[i][j]>0){
+               s1+=char(int('a')+j);
+           }
+       }
+
+   }
+   cout<<s1<<endl;
+ 
 
 }
 
@@ -92,9 +157,11 @@ int main()
 {
 ios_base::sync_with_stdio(0);
 cin.tie(0);
+cout.flush();
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

@@ -81,8 +81,58 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
-
+vector<int> z_function(string s) {
+    int n = (int) s.length();
+    vector<int> z(n);
+    for (int i = 1, l = 0, r = 0; i < n; ++i) {
+        if (i <= r)
+            z[i] = min (r - i + 1, z[i - l]);
+        while (i + z[i] < n && s[z[i]] == s[i + z[i]])
+            ++z[i];
+        if (i + z[i] - 1 > r)
+            l = i, r = i + z[i] - 1;
+    }
+    return z;
+}
 int solve(){
+    int n,k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
+    vector<int> z=z_function(s);
+    int cur=1;
+    for(int i=1;i<n;i++){
+        if(s[i]<s[i%cur]){
+            cur=i+1;
+            continue;
+        }
+        else if(s[i]>s[i%cur]){
+            break;
+
+        }
+        int p=z[1]+1;
+        if(p>cur){
+            cur=i+1;
+            continue;
+        }
+        else{
+            if(s[p-1]>=s[p]){
+                cur=i+1;
+                continue;
+            }
+        
+        }
+    }
+    for(int i=0;i<k;i++){
+        cout<<s[i%cur];
+    }
+    nl;
+    
+  
+    
+    
+    
+
     return 0;
 
 }
@@ -92,12 +142,7 @@ int main()
 {
 ios_base::sync_with_stdio(0);
 cin.tie(0);
-    int t;
-    cin>>t;
-    while(t--){
-        
-
-    }
+  solve();
 
 
     return 0;

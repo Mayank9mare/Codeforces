@@ -83,6 +83,45 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    int n,k;
+    cin>>n>>k;
+    ll a[k];
+    for(int i=0;i<k;i++)cin>>a[i];
+    ll b[k];
+    ll c[n];
+    ll d[n]={0};
+    for(int i=0;i<n;i++){
+        c[i]=INT_MAX;
+    }
+    for(int i=0;i<k;i++){
+        cin>>b[i];
+        c[a[i]-1]=b[i];
+        d[a[i]-1]=1;
+    }
+    ll l=INT_MAX;
+    for(int i=0;i<n;i++){
+        l=min(l,c[i]);
+
+        c[i]=l;
+        l++;
+
+    }
+    for(int i=n-1;i>=0;i--){
+          l=min(l,c[i]);
+          c[i]=l;
+          l++;
+       
+
+    }
+    for(int i=0;i<n;i++){
+        cout<<c[i]<<sp;
+    }
+    nl;
+
+
+
+
+
     return 0;
 
 }
@@ -95,6 +134,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

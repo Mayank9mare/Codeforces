@@ -83,7 +83,22 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    ll a,b;
+    cin>>a>>b;
+    if(a<b)swap(a,b);
+    ll d=a-b;
+    if(d==0){
+        cout<<0<<sp<<0<<endl;
+        return 0;
+    }
+    ll p=a%d;
+    ll p1=a-p;
+    ll p2=p1+d;
+    //cout<<d<<sp<<min(abs(a-p1),abs(a-p2))<<endl;ll 
+    ll ans=min(abs(a-p1),abs(a-p2));
+    cout<<d<<sp<<ans<<endl;
     return 0;
+ 
 
 }
 
@@ -95,6 +110,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

@@ -83,7 +83,11 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
-    return 0;
+    ll s;
+    cin>>s;
+   ll ans=ceil(1.0*sqrt(1.0*s));
+   cout<<ans<<endl;
+   return 0;
 
 }
 
@@ -95,6 +99,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

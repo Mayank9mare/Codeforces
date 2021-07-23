@@ -83,6 +83,14 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    ll n;
+    cin>>n;
+    ll c=0;
+    while(n){
+        c=max(c,n%10);
+        n/=10;
+    }
+    cout<<c<<endl;
     return 0;
 
 }
@@ -95,6 +103,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

@@ -83,6 +83,20 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    ll n,x,k;
+    cin>>n>>x>>k;
+    ll p=k/x;
+    ll ans;
+    if(p>=n){
+        ans=((n-1)*n)/2;
+        cout<<ans<<endl;
+        return 0;
+    }
+    ans=p*(n-p);
+    ans+=((p-1)*p)/2;
+
+    
+    cout<<ans<<endl;
     return 0;
 
 }
@@ -95,6 +109,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

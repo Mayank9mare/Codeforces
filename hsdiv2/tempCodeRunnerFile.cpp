@@ -81,8 +81,75 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
+int check(vector<vector<int>> &v,string &t,int i,int p,int m){
+    if(i==m)return 1;
+    int id=t[i]-'a';
+    int j=upper_bound(all(v[id]),p)-v[id].begin();
+    if(j==v[id].size())return 0;
+    int n=v[id].size();
+    while(j<n){
+        int r=v[id][j]-p;
+        if(r==1 || r%3==0){
+            if(check(v,t,i+1,v[id][j],m)){
+                return 1;
+            }
 
+        }
+        j++;
+        
+    }
+    return 0;
+
+
+
+  
+}
 int solve(){
+    string s,t;
+    cin>>s;
+    cin>>t;
+    int f=0;
+
+    int n=s.size();
+    int m=t.size();
+    if(m>n){
+        cout<<"NO"<<endl;
+        return 0;
+    }
+    for(int i=0;i<n;i++){
+        string p=s.substr(i);
+        if(p==t)f=1;
+    }
+  vector<vector<int>> v(26,vector<int>(0));
+  for(int i=0;i<n;i++){
+      v[s[i]-'a'].pb(i);
+  }
+ for(int i=0;i<v[t[0]-'a'].size();i++){
+     int nc=v[t[0]-'a'][i];
+     f=f|check(v,t,1,nc,m);
+     
+ }
+    
+        // if(check(s1,t)
+    
+        //     f=1;
+
+        // }
+        // if(check(s2,t)){
+        //     f=1;
+
+        // }
+        // if((check(s3,t))){
+        //     f=1;
+        // }
+        
+    
+    if(f){
+            cout<<"YES"<<endl;
+        }
+        else{
+            cout<<"NO"<<endl;
+        }
     return 0;
 
 }
@@ -95,6 +162,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

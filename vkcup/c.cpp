@@ -81,8 +81,22 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
-
+const int MAXN = 1e5 + 10;
+ 
+int a[MAXN], b[MAXN];
 int solve(){
+      int n, ans = 0;
+    cin >> n;
+    for (int i = 1; i <= n; ++i) cin >> a[i];
+    for (int i = 1; i <= n; ++i) cin >> b[i];
+    sort(a + 1, a + n + 1);
+    sort(b + 1, b + n + 1);
+    for (int i = 1; i <= n; ++i) {
+      a[i] += a[i - 1];
+      b[i] += b[i - 1];
+    }
+    while (a[n] + 100 * ans - a[(n + ans) / 4] < b[n] - b[max((n + ans) / 4 - ans, 0)]) ++ans;
+    cout << ans << endl;
     return 0;
 
 }
@@ -95,6 +109,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

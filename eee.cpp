@@ -83,6 +83,9 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    static int p=1;
+    p++;
+    return p;
     return 0;
 
 }
@@ -95,6 +98,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        cout<<solve()<<endl;
         
 
     }

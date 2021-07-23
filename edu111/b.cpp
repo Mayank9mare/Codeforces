@@ -83,6 +83,49 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    ll a,b,n;
+    cin>>n>>a>>b;
+    string s;
+    cin>>s;
+    ll ans=0;
+    if(a>=0 && b>=0){
+        ans=n*a+n*b;
+        
+    }
+    else if(b>=0){
+        ans=n*a+n*b;
+
+    }
+    else{
+        vector<int> v;
+        char p=s[0];
+        int c1=0,c2=0;
+        for(int i=0;i<n;i++){
+            if(s[i]!=p){
+                if(p=='0'){
+                    c1++;
+                }
+                else{
+                    c2++;
+                }
+                p=s[i];
+
+            }
+            
+
+        }
+        if(p=='0'){
+                    c1++;
+                }
+                else{
+                    c2++;
+        }
+        //cout<<c1<<sp<<c2<<endl;
+        ll k=min(c1,c2)+1;
+        ans=k*b+n*a;
+
+    }
+    cout<<ans<<endl;
     return 0;
 
 }
@@ -95,6 +138,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

@@ -83,6 +83,68 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    string s;
+    cin>>s;
+    int n=s.size();
+    int c1[n]={0};
+    int c2[n]={0};
+    int k1=0,k2=0;
+    int f=-1;
+    for(int i=0;i<n;i++){
+        if(s[i]=='1'){
+        if(i%2==0){
+            k1++;
+        }
+        else{
+            k2++;
+        }
+        }
+
+        c1[i]=k1;
+        c2[i]=k2;
+    }
+    
+    int p1=0,p2=0;
+    for(int i=0;i<n;i++){
+        if(s[i]=='?'){
+            if(i%2==0){
+                p1++;
+            }
+            else{
+                p2++;
+            }
+
+        }
+        int rem=n-i-1;
+         int rem1=(n-i-1)/2;;
+
+
+        int rem2=(n-i-1)/2;
+        if(i%2==0){
+            rem1=rem/2;
+            rem2=rem-rem1;
+
+        }
+        else{
+            rem2=rem/2;
+            rem1=rem-rem2;
+        }
+       
+        if(p1+c1[i]>c2[i]+rem2){
+            f=i;
+            break;
+            
+        }
+        if(p2+c2[i]>c1[i]+rem1){
+            f=i;
+            break;
+        }
+    }
+    if(f==-1){
+        f=n-1;
+    }
+    cout<<f+1<<endl;
+
     return 0;
 
 }
@@ -95,6 +157,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

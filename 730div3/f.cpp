@@ -82,7 +82,64 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 using namespace std;
 //KnightMareVoid
 
+const ll INF = INT_MAX;
+vector<vector<pair<ll, ll>>> adj;
+void dijkstra(int s, vector<ll> & d, vector<ll> & p) {
+    int n = adj.size();
+    d.assign(n, INF);
+    p.assign(n, -1);
+
+    d[s] = 0;
+    using pii = pair<ll, ll>;
+    priority_queue<pii, vector<pii>, greater<pii>> q;
+    q.push({0, s});
+    while (!q.empty()) {
+        ll v = q.top().second;
+        ll d_v = q.top().first;
+        q.pop();
+        if (d_v != d[v])
+            continue;
+
+        for (auto edge : adj[v]) {
+            ll to = edge.first;
+            ll len = max(0LL,edge.second-d[v]);
+
+            if (d[v] + len < d[to]) {
+                d[to] = d[v] + len;
+                p[to] = v;
+                q.push({d[to], to});
+            }
+        }
+    }
+}
 int solve(){
+    ll n,m;
+    
+    cin>>n>>m;
+    adj.resize(n);
+    for(int i=0;i<n;i++){
+        adj[i].clear();
+    }
+    
+    for(int i=0;i<m;i++){
+        ll x,y,cost;
+        cin>>x>>y>>cost;
+        x--;
+        y--;
+        adj[x].pb({y,cost});
+        adj[y].pb({x,cost});
+    }
+    vector<ll> d;
+    vector<ll> p;
+    dijkstra(0,d,p);
+    if(d[n-1]==INF){
+        cout<<"NOT POSSIBLE";
+        return 0;
+    }
+    cout<<d[n-1];
+    
+  
+
     return 0;
 
 }
@@ -92,13 +149,7 @@ int main()
 {
 ios_base::sync_with_stdio(0);
 cin.tie(0);
-    int t;
-    cin>>t;
-    while(t--){
-        
-
-    }
-
+solve();
 
     return 0;
 }

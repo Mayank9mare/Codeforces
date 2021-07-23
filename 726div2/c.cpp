@@ -83,6 +83,38 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    def(a,n);
+    sort(a,a+n);
+    if(n==2){
+        for(int i=0;i<n;i++){
+            cout<<a[i]<<sp;
+        }
+        nl;
+        return 0;
+    }
+    ll d=mod;
+    int x1;
+    for(int i=0;i<n-1;i++){
+        ll d1=a[i+1]-a[i];
+        if(d1<d){
+            d=d1;
+            x1=i;
+        }
+    }
+
+    vector<ll> v;
+    v.pb(a[x1+1]);
+    for(int i=x1+2;i<n;i++){
+        v.pb(a[i]);
+    }
+    for(int i=0;i<=x1;i++){
+        v.pb(a[i]);
+    }
+    for(int i=0;i<v.size();i++){
+        cout<<v[i]<<sp;
+    }
+    nl;
+
     return 0;
 
 }
@@ -95,6 +127,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

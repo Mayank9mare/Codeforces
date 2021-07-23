@@ -81,9 +81,75 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
+const int N=1e6;
+bool prime[N+1];
 
-int solve(){
+map<pll,int> dp;
+int check(ll n,ll turn){
+    if(dp.find({n,turn})!=dp.end()){
+        return dp[{n,turn}];
+    }
+    
+    int c=0;
+    int f;
+    for(int i=2;i*i<=n;i++){
+        if(n%i==0){
+            c++;
+            ll p1=i;
+            ll p2=n/i;
+            if(p2!=p1)c++;
+            f=check((p1-1)*p2,!turn);
+            if(f==0){
+                dp[{n,turn}]=1;
+                dp[{n,!turn}]=1;
+                return dp[{n,turn}];
+            }
+            f=check((p1)*(p2-1),!turn);
+            if(f==0){
+                dp[{n,turn}]=1;
+                dp[{n,!turn}]=1;
+                return dp[{n,turn}];
+            }
+            
+        }
+    }
+    dp[{n,turn}]=0;
+    dp[{n,!turn}]=0;
     return 0;
+
+
+}
+
+
+     
+    
+int solve(){
+    ll n;
+    cin>>n;
+  if(n&1==1){
+      cout<<"Bob"<<endl;
+  }
+  else{
+      int c=0;
+      while(n%2==0){
+          c++;
+          n/=2;
+
+          
+      }
+      if(n!=1){
+          cout<<"Alice"<<endl;
+      }
+      else{
+          if(c%2==1){
+              cout<<"Bob"<<endl;
+          }
+          else{
+              cout<<"Alice"<<endl;
+          }
+      }
+  }
+  return 0;
 
 }
 
@@ -92,9 +158,12 @@ int main()
 {
 ios_base::sync_with_stdio(0);
 cin.tie(0);
+dp[{1,0}]=0;
+dp[{1,1}]=0;
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

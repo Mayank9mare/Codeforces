@@ -81,8 +81,46 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
-
+int query(int a){
+    cout<<a<<endl;;
+    int b;
+    cin>>b;
+    return b;
+}
 int solve(){
+    ll x,y;
+    cin>>x>>y;
+    int c=0;
+    ll m=x;
+    while(m){
+        c++;
+        m/=2;
+    }
+    c++;
+    int p=0;
+    int xr=0;
+    for(int i=0;i<x;i++){
+        int z=query(p);
+        xr^=p;
+        if(z==1){
+            return 0;
+        }
+        p=xr^(i+1);
+
+
+
+        
+
+    }
+  //int p1=query(0);
+
+
+
+   
+
+    
+
+
     return 0;
 
 }
@@ -92,9 +130,11 @@ int main()
 {
 ios_base::sync_with_stdio(0);
 cin.tie(0);
+cout.flush();
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

@@ -81,24 +81,57 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
+const double eps = 1e-9;
 
-int solve(){
-    return 0;
-
+long double expectedRaces(long double c,long double m,long double p,long double v)
+{
+    long double ans = p;
+    if(abs(c)>eps)
+    {
+        if(c-v>eps)
+        {
+            if(abs(m)>eps)
+                ans += c*(1+expectedRaces(c-v,m+v/2.0,p+v/2.0,v));
+            else
+                ans += c*(1+expectedRaces(c-v,0,p+v,v));
+        }
+        else
+        {
+            if(abs(m)>eps)
+                ans += c*(1+expectedRaces(0,m+c/2.0,p+c/2.0,v));
+            else
+                ans += c*(1+expectedRaces(0,0,p+c,v));
+        }
+    }
+    if(abs(m)>eps)
+    {
+        if(m-v>eps)
+        {
+            if(abs(c)>eps)
+                ans += m*(1+expectedRaces(c+v/2.0,m-v,p+v/2.0,v));
+            else
+                ans += m*(1+expectedRaces(0,m-v,p+v,v));
+        }
+        else
+        {
+            if(abs(c)>eps)
+                ans += m*(1+expectedRaces(c+m/2.0,0,p+m/2.0,v));
+            else
+                ans += m*(1+expectedRaces(0,0,p+m,v));
+        }
+    }
+    return ans;
 }
-
 
 int main()
 {
-ios_base::sync_with_stdio(0);
-cin.tie(0);
     int t;
-    cin>>t;
-    while(t--){
-        
-
+    cin >> t;
+    while(t--)
+    {
+        long double c,m,p,v;
+        cin >> c >> m >> p >> v;
+        long double ans = expectedRaces(c,m,p,v);
+        cout << setprecision(12) << fixed << ans << '\n';
     }
-
-
-    return 0;
 }

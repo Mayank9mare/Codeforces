@@ -56,7 +56,7 @@
 #define ps(x,y) fixed<<setprecision(y)<<x;
 #define fo(i, j, k, in) for (ll i=j ; i<k ; i+=in)
 #define re(i, j) fo(i, 0, j, 1)
-#define pi 3.1415926535897932384626433832795
+//#define pi 3.1415926535897932384626433832795
 #define all(cont) cont.begin(), cont.end()
 #define countbit(x) __builtin_popcount(x)
 #define mod 1000000007
@@ -81,8 +81,59 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
-
+vector<int> prefix_function(string s) {
+    int n = (int)s.length();
+    vector<int> pi(n);
+    for (int i = 1; i < n; i++) {
+        int j = pi[i-1];
+        while (j > 0 && s[i] != s[j])
+            j = pi[j-1];
+        if (s[i] == s[j])
+            j++;
+        pi[i] = j;
+    }
+    return pi;
+}
 int solve(){
+    int n,k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
+    vector<int> z=prefix_function(s);
+    int cur=1;
+    for(int i=1;i<n;i++){
+        if(s[i]<s[i%cur]){
+            cur=i+1;
+            continue;
+        }
+        else if(s[i]>s[i%cur]){
+            break;
+
+        }
+        int p=z[1]+1;
+        //cout<<s[p]<<endl;
+        if(p>cur){
+            cur=i+1;
+            continue;
+        }
+        else{
+            if(s[p-1]<s[p]){
+                cur=i+1;
+                continue;
+            }
+        
+        }
+    }
+    for(int i=0;i<k;i++){
+        cout<<s[i%cur];
+    }
+    nl;
+    
+  
+    
+    
+    
+
     return 0;
 
 }
@@ -92,12 +143,7 @@ int main()
 {
 ios_base::sync_with_stdio(0);
 cin.tie(0);
-    int t;
-    cin>>t;
-    while(t--){
-        
-
-    }
+  solve();
 
 
     return 0;

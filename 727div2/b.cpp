@@ -78,11 +78,40 @@
 const int dx[4]={1,0,0,-1}, dy[4]={0,1,-1,0};
 const int x_dir[]={-1,-1,-1,0,0,1,1,1};
 const int y_dir[]={-1,0,1,-1,1,-1,0,1};
-
+ll a[100001][26]={0};
 using namespace std;
 //KnightMareVoid
 
 int solve(){
+    int n,q;
+    cin>>n>>q;
+    string s;
+    cin>>s;
+    
+    for(int i=0;i<n;i++){
+        for(int j=0;j<26;j++){
+            if(i!=0){
+            a[i][j]+=a[i-1][j];
+            }
+        }
+        a[i][s[i]-'a']++;
+    }
+    while(q--){
+        int l,r;
+        cin>>l>>r;
+        l--;
+        r--;
+        ll ans=0;
+        for(int i=0;i<26;i++){
+            ll cnt=a[r][i];
+            if(l-1>=0){
+                cnt-=a[l-1][i];
+            }
+            ans+=(cnt)*(i+1);
+
+        }
+        cout<<ans<<endl;
+    }
     return 0;
 
 }
@@ -92,12 +121,7 @@ int main()
 {
 ios_base::sync_with_stdio(0);
 cin.tie(0);
-    int t;
-    cin>>t;
-    while(t--){
-        
-
-    }
+    solve();
 
 
     return 0;

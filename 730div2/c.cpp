@@ -81,8 +81,47 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
+double state(double c,double m,double p,double v){
+    cout<<c<<sp<<m<<endl;
+    if(p==1.0000000000)return p;
+    double a1,a2;
+    if(c<=0.0000000000000000000){
+        //cout<<1<<endl;
+        a1=0;
+    }
+   if(c<=v){
+      double p1=c/2.0; 
+      a1=1.0*c*(1.0+state(0.0,m+p1,p+p1,v));
+      
+  }
+  else if(c>v){
+      double p1=(c-v)/2.0;
+      a1=1.0*c*(1.0+state(v,m+p1,p+p1,v));
+  }
+  else{
+      a1=0.0;
+  }
+ if(m<=v){
+      double p1=m/2.0;
+      a2=1.0*m*(1.0+state(c+p1,0.0,p+p1,v));
+  }
+  else if(m>v){
+      double p1=(m-v)/2.0;
+      a2=1.0*m*(1.0+state(c+p1,v,p+p1,v));
+  }
+  else{
+      a2=0.0;
+  }
+  //cout<<a1<<sp<<a2<<endl;
+  return p+a1+a2;
+}
 
 int solve(){
+    double c,m,p,v;
+    cin>>c>>m>>p>>v;
+    //cout<<c<<sp<<m<<sp<<p<<sp<<v<<endl;
+    cout<<state(c,m,p,v)<<endl;
+ 
     return 0;
 
 }
@@ -94,7 +133,10 @@ ios_base::sync_with_stdio(0);
 cin.tie(0);
     int t;
     cin>>t;
+    cout<<fixed;
+    cout<<setprecision(10);
     while(t--){
+        solve();
         
 
     }

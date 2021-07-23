@@ -81,8 +81,86 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
+ll a[100][100];
+int check(int i,int j,int n,int m){
+    if(a[i][j]==0)return 0;
+    int c=0;
+    if(i+1<n){
+        if(a[i+1][j]==1)return 0;
+        a[i+1][j]=0;
+    }
+    if(j+1<m){
+        if(a[i][j+1]==1)return 0;
+        a[i][j+1]=0;
+    }
+    if(i+1<n && j+1<m){
+        if(a[i+1][j+1]==1)return 0;
+        a[i+1][j+1]=0;
+    }
+     if(i+1<n && j-1>=0){
+        if(a[i+1][j-1]==1)return 0;
+        a[i+1][j-1]=0;
+    }
+     if(i-1>=0 && j+1<m){
+        if(a[i-1][j+1]==1)return 0;
+        a[i-1][j+1]=0;
+    }
+     if(i-1>=0 && j-1>=0){
+        if(a[i-1][j-1]==1)return 0;
+        a[i-1][j-1]=0;
+    }
+    return 1;
+    
+}
 
 int solve(){
+    ll n,m;
+    cin>>n>>m;
+    //ll a[n][m];
+  for(int i=0;i<n;i++){
+      for(int j=0;j<m;j++){
+          a[i][j]=-1;
+      }
+  }
+  for(int i=0;i<n;i++){
+      int j=0;
+      if(check(i,j,n,m)){
+          a[i][j]=1;
+      }
+  }
+  for(int j=0;j<m;j++){
+      int i=n-1;
+      if(check(i,j,n,m)){
+          a[i][j]=1;
+      }
+  }
+    for(int i=0;i<n;i++){
+      int j=m-1;
+      if(check(i,j,n,m)){
+          a[i][j]=1;
+      }
+  }
+   for(int j=0;j<m;j++){
+      int i=0;
+      if(check(i,j,n,m)){
+          a[i][j]=1;
+      }
+  }
+  for(int i=0;i<n;i++){
+      for(int j=0;j<m;j++){
+          if(a[i][j]==1){
+              cout<<a[i][j];
+          }
+          else{
+              cout<<0;
+          }
+      }
+      nl;
+  }
+
+
+
+
     return 0;
 
 }
@@ -95,6 +173,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

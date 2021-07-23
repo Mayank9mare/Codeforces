@@ -83,6 +83,51 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    int k,n,m;
+    cin>>k>>n>>m;
+    int a[n];
+    int b[m];
+    for(int i=0;i<n;i++)cin>>a[i];
+    for(int i=0;i<m;i++)cin>>b[i];
+    int l=0;
+    int r=0;
+    vector<int> v;
+    int f=0;
+    while(v.size()!=n+m){
+        if(l<n && a[l]==0){
+            v.pb(a[l]);
+            k++;
+            l++;
+        }
+        else if(r<m && b[r]==0){
+            v.pb(b[r]);
+            k++;
+            r++;
+        }
+        else if(l<n &&a[l]<=k){
+            v.pb(a[l]);
+            l++;
+        }
+        else if(r<m &&b[r]<=k ){
+            v.pb(b[r]);
+            r++;
+        }
+        else{
+            f=1;
+            break;
+        }
+
+
+    }
+    if(f){
+        cout<<-1<<endl;
+    }
+    else{
+        for(int i=0;i<v.size();i++){
+            cout<<v[i]<<sp;
+        }
+        nl;
+    }
     return 0;
 
 }
@@ -95,6 +140,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

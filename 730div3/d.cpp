@@ -83,6 +83,34 @@ using namespace std;
 //KnightMareVoid
 
 int solve(){
+    def(a,n);
+    ll b[n];
+    b[0]=0;
+    for(int i=1;i<n;i++){
+        ll x=a[i-1]^b[i-1];
+        ll y=0;
+        vector<int> v;
+        for(int j=0;j<31;j++){
+            if((1<<j)&x){
+                //cout<<j<<endl;
+                if(((1<<j)&a[i])==0){
+                      y=y|(1<<j);
+                      //cout<<y<<endl;
+                    //cout<<y<<endl;
+
+
+                }
+             
+            }
+        }
+        b[i]=y;
+    
+    }
+    for(int i=0;i<n;i++){
+        cout<<b[i]<<sp;
+    }
+    nl;
+
     return 0;
 
 }
@@ -95,6 +123,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

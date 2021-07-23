@@ -81,8 +81,64 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
+vector<vector<int>> adj; // graph represented as an adjacency list
+ // number of vertices
 
+vector<bool> visited;
+
+void dfs(int v) {
+    visited[v] = true;
+    for (int u : adj[v]) {
+        if (!visited[u])
+            dfs(u);
+    }
+}
+const int N=1e5+10;
+ll p[N];
+ll p2[N];
 int solve(){
+
+    def(a,n);
+    pll b[n];
+    mem0(p);
+    mem0(p2);
+  for(int i=0;i<n;i++){
+      if(i%2==0){
+          p[a[i]]++;
+      }
+      else{
+          p2[a[i]]++;
+      }
+  }
+  sort(a,a+n);
+  for(int i=0;i<n;i++){
+        if(i%2==0){
+          p[a[i]]--;
+      }
+      else{
+          p2[a[i]]--;
+      }
+  }
+    //cout<<p[2]<<endl;
+    int f=0;
+    for(int i=0;i<n;i++){
+        if(p[a[i]]==0 && p2[a[i]]==0){
+
+        }
+        else{
+            f=1;
+        }
+    }
+ 
+    if(f){
+        cout<<"NO"<<endl;
+    }
+    else{
+        cout<<"YES"<<endl;
+    }
+    
+    
+    
     return 0;
 
 }
@@ -95,6 +151,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }

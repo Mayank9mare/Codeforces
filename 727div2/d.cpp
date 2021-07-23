@@ -80,9 +80,81 @@ const int x_dir[]={-1,-1,-1,0,0,1,1,1};
 const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
-//KnightMareVoid
+//
+int cmp(pll x,pll y){
+    return x.second<y.second;
+}
 
 int solve(){
+    ll n;
+    cin>>n;
+    vector<pll> v;
+    ll ans=0;
+    for(int i=0;i<n;i++){
+        ll x,y;
+        cin>>x>>y;
+        v.pb({x,y});
+        ans+=2*x;
+
+    }
+    sort(all(v),cmp);
+    //reverse(all(v));
+    // for(int i=0;i<n;i++){
+    //     cout<<v[i].first<<sp<<v[i].second<<endl;
+    // }
+
+    ll c=0;
+    int l=0,r=v.size()-1;
+    while(l<=r){
+        ll p=v[l].first;
+        if(l==r){
+            if(c>=v[l].second){
+                ans-=v[l].first;
+                break;
+
+            }
+            else{
+                if(c+v[l].first>=v[l].second){
+                    ll q=v[l].second-c;
+                    c+=q;
+                    v[l].first-=q;
+                    ans-=v[l].first;
+                    break;
+
+
+                }
+                else{
+                    break;
+                }
+            }
+        }
+        if(c>=v[l].second){
+            ans-=v[l].first;
+            c+=v[l].first;
+            l++;
+            continue;
+        }
+        else if(v[l].second>=c+v[r].first){
+          c+=v[r].first;
+          v[r].first=0;
+          r--;
+        
+
+
+        }
+        else{
+           p=v[l].second-c;
+           c+=p;
+           c+=v[l].first;
+           v[r].first-=p;
+           ans-=v[l].first;
+           l++;
+
+        }
+    }
+    cout<<ans<<endl;
+    
+
     return 0;
 
 }
@@ -92,12 +164,7 @@ int main()
 {
 ios_base::sync_with_stdio(0);
 cin.tie(0);
-    int t;
-    cin>>t;
-    while(t--){
-        
-
-    }
+   solve();
 
 
     return 0;

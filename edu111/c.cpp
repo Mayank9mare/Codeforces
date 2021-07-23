@@ -81,8 +81,55 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
+ll dis(ll x,ll y,ll x1,ll y1){
+    ll ans=abs(x-x1)+abs(y-y1);
+    return ans;
+}
+int check(ll a[],int i,int j,int k){
+    ll x1=abs(a[i]-a[j])+abs(i-j);
+    ll x2=abs(a[i]-a[k])+abs(i-k);
+    ll x3=abs(a[j]-a[k])+abs(j-k);
+    if(x1==x2+x3)return 1;
+    if(x2==x3+x1)return 1;
+    if(x3==x1+x2)return 1;
+    return 0;
 
+}
+int check2(ll a[],int i,int j,int k,int l){
+    if(check(a,i,j,k))return 1;
+    if(check(a,i,j,l))return  1;
+    if(check(a,i,k,l))return 1;
+    if(check(a,j,k,l))return 1;
+    return 0;
+
+
+}
 int solve(){
+    def(a,n);
+    //sort(a,a+n);
+    ll ans= 2*n-1;
+    for(int i=0;i<n;i++){
+        //cout<<check(a,i,i+1,i+2)<<endl;
+        if(i+2<n){
+            if(!check(a,i,i+1,i+2)){
+           ans++;
+            }
+        }
+        if(i+3<n){
+            if(check2(a,i,i+1,i+2,i+3)){
+                
+            }
+            else{
+                ans++;
+            }
+        }
+    }
+    cout<<ans<<endl;
+
+
+
+
+
     return 0;
 
 }
@@ -95,6 +142,7 @@ cin.tie(0);
     int t;
     cin>>t;
     while(t--){
+        solve();
         
 
     }
