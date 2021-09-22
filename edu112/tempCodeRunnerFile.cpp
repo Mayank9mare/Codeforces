@@ -59,7 +59,7 @@
 #define pi 3.1415926535897932384626433832795
 #define all(cont) cont.begin(), cont.end()
 #define countbit(x) __builtin_popcount(x)
-#define mod 1000000007
+#define mod 1000000007//998244353
 #define lo lower_bound
 #define de(n) ll n;cin>>n;
 #define def(a,n) ll n;cin>>n;ll a[n];re(i,n){cin>>a[i];}
@@ -67,6 +67,7 @@
 #define deb(x) cout<<#x<<"="<<x<<endl;
 #define tr(it,a) for(auto it=a.begin();it!=a.end();it++)
 #define nl cout<<endl;
+#define minato ios_base::sync_with_stdio(false), cin.tie(nullptr)
 #define mem1(a)           memset(a,-1,sizeof(a))
 #define mem0(a)           memset(a,0,sizeof(a))
 #define ppc               __builtin_popcount
@@ -81,10 +82,14 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
-const int MAXN=1e5;
+const int MAXN=2e6+2;
 int n,tree[4*MAXN];
 int A[MAXN];
 int lazy[4*MAXN];
+// const int MAXN=1e5;
+// int n,tree[4*MAXN];
+// int A[MAXN];
+// int lazy[4*MAXN];
 
 void build(int node, int start, int end)
 {
@@ -101,7 +106,7 @@ void build(int node, int start, int end)
         // Recurse on the right child
         build(2*node+1, mid+1, end);
         // Internal node will have the sum of both of its children
-        tree[node] = tree[2*node] + tree[2*node+1];
+        tree[node] = min(tree[2*node],tree[2*node+1]);
     }
 }
 
@@ -179,7 +184,7 @@ void updateRange(int node, int start, int end, int l, int r, int val)
     if(lazy[node] != 0)
     { 
         // This node needs to be updated
-        tree[node] += (end - start + 1) * lazy[node];    // Update it
+        tree[node] +=lazy[node];    // Update it
         if(start != end)
         {
             lazy[node*2] += lazy[node];                  // Mark child as lazy
@@ -192,7 +197,7 @@ void updateRange(int node, int start, int end, int l, int r, int val)
     if(start >= l and end <= r)
     {
         // Segment is fully within range
-        tree[node] += (end - start + 1) * val;
+        tree[node] +=val;
         if(start != end)
         {
             // Not leaf node
@@ -204,17 +209,17 @@ void updateRange(int node, int start, int end, int l, int r, int val)
     int mid = (start + end) / 2;
     updateRange(node*2, start, mid, l, r, val);        // Updating left child
     updateRange(node*2 + 1, mid + 1, end, l, r, val);   // Updating right child
-    tree[node] = tree[node*2] + tree[node*2+1];        // Updating root with max value 
+    tree[node] = min(tree[node*2],tree[node*2+1]);        // Updating root with max value 
 }
 
 int queryRange(int node, int start, int end, int l, int r)
 {
     if(start > end or start > r or end < l)
-        return 0;         // Out of range
+        return INT_MAX;         // Out of range
     if(lazy[node] != 0)
     {
         // This node needs to be updated
-        tree[node] += (end - start + 1) * lazy[node];            // Update it
+        tree[node] += lazy[node];            // Update it
         if(start != end)
         {
             lazy[node*2] += lazy[node];         // Mark child as lazy
@@ -227,13 +232,72 @@ int queryRange(int node, int start, int end, int l, int r)
     int mid = (start + end) / 2;
     int p1 = queryRange(node*2, start, mid, l, r);         // Query left child
     int p2 = queryRange(node*2 + 1, mid + 1, end, l, r); // Query right child
-    return (p1 + p2);
+    return min(p1, p2);
 }
 
+
 int solve(){
-    static int p=1;
-    p++;
-    return p;
+    int m;
+    cin>>n>>m;
+    mem0(A);
+    m-=1;
+    vector<pair<ll,pll>> v;
+    for(int i=0;i<n;i++){
+        int l,r,x;
+        cin>>l>>r>>x;
+        // l*=2;
+        // r*=2;
+        v.pb({x,{l,r-1}});
+    }
+    sort(all(v));
+    int l=0,r=0;
+    build(1,0,m);
+    //updateRange(1,0,m,0,m,1);
+    
+    //cout<<queryRange(1,0,m,0,m)<<endl;
+    ll ans=INT_MAX;
+    ll vis[n]={0};
+    while(l<n&& r<n){
+        ll p1=v[l].first;
+        //cout<<"+"<<l<<endl;
+        if(vis[l]==0){
+        updateRange(1,0,m,v[l].second.first,v[l].second.second,1);
+        vis[l]=1;
+        }
+        //r=max(r,l);
+        while(r<n &&l<=r){
+            ll p2=v[r].first;
+            if(vis[r]==0){
+            updateRange(1,0,m,v[r].second.first,v[r].second.second,1);
+            vis[r]=1;
+            //cout<<"+"<<r<<endl;
+            }
+            if(queryRange(1,0,m,2,m)>0){
+                ans=min(p2-p1,ans);
+                break;
+            }
+            r++;
+            
+            
+
+        }
+        if(vis[l]==1){
+        updateRange(1,0,m,v[l].second.first,v[l].second.second,-1);
+        vis[l]=0;
+        }
+        //cout<<"-"<<l<<endl;
+        //cout<<l<<sp<<r<<sp<<ans<<endl;
+        l++;
+        
+
+
+    
+
+    }
+    cout<<ans<<endl;
+
+
+
     return 0;
 
 }
@@ -241,15 +305,8 @@ int solve(){
 
 int main()
 {
-ios_base::sync_with_stdio(0);
-cin.tie(0);
-    int t;
-    cin>>t;
-    while(t--){
-        cout<<solve()<<endl;
-        
-
-    }
+    minato;
+solve();
 
 
     return 0;

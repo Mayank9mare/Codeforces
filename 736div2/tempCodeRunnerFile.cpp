@@ -59,7 +59,7 @@
 #define pi 3.1415926535897932384626433832795
 #define all(cont) cont.begin(), cont.end()
 #define countbit(x) __builtin_popcount(x)
-#define mod 1000000007
+#define mod 1000000007//998244353
 #define lo lower_bound
 #define de(n) ll n;cin>>n;
 #define def(a,n) ll n;cin>>n;ll a[n];re(i,n){cin>>a[i];}
@@ -67,6 +67,7 @@
 #define deb(x) cout<<#x<<"="<<x<<endl;
 #define tr(it,a) for(auto it=a.begin();it!=a.end();it++)
 #define nl cout<<endl;
+#define minato ios_base::sync_with_stdio(false), cin.tie(nullptr)
 #define mem1(a)           memset(a,-1,sizeof(a))
 #define mem0(a)           memset(a,0,sizeof(a))
 #define ppc               __builtin_popcount
@@ -101,7 +102,7 @@ void build(int node, int start, int end)
         // Recurse on the right child
         build(2*node+1, mid+1, end);
         // Internal node will have the sum of both of its children
-        tree[node] = tree[2*node] + tree[2*node+1];
+        tree[node] = gcd(tree[2*node],tree[2*node+1]);
     }
 }
 
@@ -127,7 +128,7 @@ void update(int node, int start, int end, int idx, int val)
             update(2*node+1, mid+1, end, idx, val);
         }
         // Internal node will have the sum of both of its children
-        tree[node] = tree[2*node] + tree[2*node+1];
+        tree[node] = gcd(tree[2*node],tree[2*node+1]);
     }
 }
 
@@ -136,7 +137,7 @@ int query(int node, int start, int end, int l, int r)
     if(r < start or end < l)
     {
         // range represented by a node is completely outside the given range
-        return 0;
+        return -1;
     }
     if(l <= start and end <= r)
     {
@@ -147,7 +148,11 @@ int query(int node, int start, int end, int l, int r)
     int mid = (start + end) / 2;
     int p1 = query(2*node, start, mid, l, r);
     int p2 = query(2*node+1, mid+1, end, l, r);
-    return (p1 + p2);
+    //if(p1==0 && p2==0)return 1;
+    if(p1==-1)return p2;
+    if(p2==-1)return p1;
+    
+    return gcd(p1,p2);
 }
 
 void updateRange1(int node, int start, int end, int l, int r, int val)
@@ -231,9 +236,49 @@ int queryRange(int node, int start, int end, int l, int r)
 }
 
 int solve(){
-    static int p=1;
-    p++;
-    return p;
+    def(a,n);
+    for(int i=1;i<n;i++){
+        A[i]=llabs(a[i]-a[i-1]);
+        //cout<<A[i]<<sp;
+
+    }
+    //nl;
+    build(1,1,n-1);
+    ll ans=0;
+    for(int i=1;i<n;i++){
+        if(A[i]==1)continue;
+        //cout<<A[i]<<sp;
+        int l=i;
+        int r=n-1;
+        while(l<r){
+           // cout<<i<<sp<<l<<endl;
+            int m=(l+r)/2;
+            if(l+1==r){
+                if(query(1,1,n-1,i,r)>1){
+                    l=r;
+                    break;
+                }
+                else{
+                    break;
+                }
+            }
+         
+            
+            
+            if(query(1,1,n-1,i,m)>1){
+              
+                l=m;
+            }
+            else{
+                r=m-1;
+            }
+        }
+       // cout<<i<<sp<<l<<endl;;
+        ans=max(ans,1LL*l-i+1);
+
+    }
+    cout<<ans+1<<endl;
+
     return 0;
 
 }
@@ -241,12 +286,11 @@ int solve(){
 
 int main()
 {
-ios_base::sync_with_stdio(0);
-cin.tie(0);
+    minato;
     int t;
     cin>>t;
     while(t--){
-        cout<<solve()<<endl;
+        solve();
         
 
     }
