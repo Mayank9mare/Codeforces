@@ -59,7 +59,7 @@
 #define pi 3.1415926535897932384626433832795
 #define all(cont) cont.begin(), cont.end()
 #define countbit(x) __builtin_popcount(x)
-#define mod 1000000007//998244353
+#define mod 998244353
 #define lo lower_bound
 #define de(n) ll n;cin>>n;
 #define def(a,n) ll n;cin>>n;ll a[n];re(i,n){cin>>a[i];}
@@ -75,7 +75,7 @@
 #define precision(x) cout << fixed << setprecision(x);
 #define gcd(a,b)    __gcd((a),(b))
 #define lcm(a,b)    ((a)*(b)) / gcd((a),(b))
-//#define endl "\n"
+#define endl "\n"
 #define int long long
 const int dx[4]={1,0,0,-1}, dy[4]={0,1,-1,0};
 const int x_dir[]={-1,-1,-1,0,0,1,1,1};
@@ -83,90 +83,105 @@ const int y_dir[]={-1,0,1,-1,1,-1,0,1};
 
 using namespace std;
 //KnightMareVoid
-int n,flag;
-//vector<vector<pll>> adj;
-vector<vector<pll>> g; 
-vector<int> c;
-void dfs(int x,int p){
-    for(auto u:g[x]){
-        int v=u.first,w=u.second;
-        //cout<<v<<sp<<x<<endl;
-        if(c[v]==-1){
-            c[v]=w^c[x];
-            //if(v!=p)
-            dfs(v,x);
+const int MAX=2e6+10;
+ll fac[MAX];
+ll infact[MAX];
+int modu(ll x){
+while(x<0)
+  x+=mod;
+return (x%mod);
+}
+ll power(ll x,ll y){
+    ll p=mod;
+    ll res =1;
+    x=x%p;
+    while(y>0){
+        if(y&1){
+            res=(res*x)%p;
         }
-        else{
-           if(c[v]!=w^c[x]){
-               //cout<<v<<sp<<x<<endl;
-               flag=1;
-               return;
-           }
-           
+            y=y>>1;
+            x=(x*x)%p;
         }
-        if(flag==1 )return;
-    }
-    return ;
+        return res;
 
+    
+}
+ll modInverse(ll n){
+    ll p=mod;
+    return power(n,p-2);
+}
+ll nCrModFermat(ll n,ll r){
+    if(r>n)return 0;
+    if(r==n)return 1;
+    ll p=mod;
+    if(r==0){
+        return 1;
+    }
+    //cout<<1<<endl;
+    
+  
+    return(fac[n]%mod*(infact[r])%p*(infact[n-r])%p)%mod;
 
 }
+void preprocess(){
+    fac[0]=1;
+    infact[0]=1;
+    //cout<<1<<endl;
+    for(int i=1;i<MAX;i++){
+        fac[i]=(fac[i-1]%mod*i%mod)%mod;
+        infact[i]=(ll)infact[i - 1] * power(i, mod - 2) % mod;
+        //cout<<fac[i]<<sp;
+    }
+}
 int solve(){
-    int m;
-    cin>>n>>m;
-    int a[n];
-    int b[n];
-    int val[n];
-    flag=0;
-    //adj.assign(n,vector<pll>(0));
-    g.assign(n,vector<pll>(0));
-    c.assign(n,-1);
-    //dp.assign(n,0);
+    int n,k;
+    cin>>n>>k;
+    string s;
+    cin>>s;
+    if(k==0 ){
+        cout<<1<<endl;
+        return 0;
+    }
+    vector<int> v(n);
+    int c=0;
+    for(int i=0;i<n;i++){
+        if(s[i]=='1'){
+            c++;
+        }
+        v[i]=c;
+    }
+    if(c<k){
+        cout<<1<<endl;
+        return 0;
+    }
+    int ans=0;
+    int l=0;
+    int prv=0;
+    for(int i=0;i<n;i++){
+        if(s[i]=='0')continue;
+        int p=(l>0)?v[l-1]:0;
+        if(v[i]-p==k){
+            int j=i;
+            while(j<n &&v[j]-p==k){
+                j++;
+            }
+            int len=j-l;
+            ans=(ans-prv+mod)%mod;
+            ans+=nCrModFermat(len,k);
+            ans%=mod;
+            while(v[i]-p==k){
+                l++;
+                p=v[l-1];
+            }
+            int len2=j-l;
+            prv=nCrModFermat(len2,k-1);
 
-    for(int i=0;i<n-1;i++){
-        int x,y,z;
-        cin>>x>>y>>z;
-        x--;y--;
-        a[i]=x;
-        b[i]=y;
-        val[i]=z;
-       // adj[x].pb({y,z});
-        //adj[y].pb({x,z});
-        if(z!=-1){
-        z=ppcll(z)&1;
-            g[x].pb({y,z});
-            g[y].pb({x,z});
-        
         }
     }
-    for(int i=0;i<m;i++){
-        int x,y,z;
-        cin>>x>>y>>z;
-        x--;
-        y--;
-        g[x].pb({y,z&1});
-        g[y].pb({x,z&1});
-    }
-
-    
-  for(int i=0;i<n;i++){
-      if(c[i]==-1){
-          c[i]=0;
-          dfs(i,-1);
-      }
-  }
-  if(flag==1){
-      cout<<"NO"<<endl;
-      return 0;
-  }
-  cout<<"YES"<<endl;
-  for(int i=0;i<n-1;i++){
-      if(val[i]==-1){
-          val[i]=c[a[i]]^c[b[i]];
-
-      }
-      cout<<a[i]+1<<sp<<b[i]+1<<sp<<val[i]<<endl;
-  }
-    
+    //if(ans==0)ans++;
+    cout<<ans<<endl;
+   
+ 
 
 
     return 0;
@@ -177,7 +192,8 @@ int solve(){
 signed main()
 {
     minato;
-    w(t)
+    preprocess();
+    //w(t)
     solve();
 
 
