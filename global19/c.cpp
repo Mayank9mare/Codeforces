@@ -114,36 +114,35 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 //KnightMareVoid
 
 int solve(){
-    int hc,dc,hm,dm;
-    int w,a,k;
-    cin>>hc>>dc;
-    cin>>hm>>dm;
-    cin>>k>>w>>a;
+    def(a,n);
     int f=0;
-    
-   double x1=(hm*1.0)/dc*1.0;
-   double x2=(hc*1.0)/dm*1.0;
-   for(int i=0;i<=k;i++){
-       double x=(double)i*w*1.0;
-       double y=(double)(k-i)*a*1.0;
-       x1=(double)(hm*1.0)/(dc+x)*1.0;
-       x2=(double)(hc*1.0+y*1.0)/(dm*1.0);
-       int k1=ceil(x1);
-       int k2=ceil(x2);
-       //debug(x1);
-       //debug(x2);
-       if(k1-k2<1){
-           f=1;
-       }
-      
+    int c=0;
+    int ans=0;
 
-   }
-     if(f){
-            cout<<"YES"<<endl;
+    
+
+
+    for(int i=1;i<n-1;i++){
+        if(a[i]>1){
+            f=1;
         }
-        else{
-            cout<<"NO"<<endl;
+        c+=a[i];
+        if(a[i]%2==1){
+            ans++;
         }
+    }
+    
+    //cout<<f<<endl;
+    ans+=((c));
+    ans/=2;
+    if(n==3 && a[1]%2==1){
+        f=0;
+    }
+    if(f==0){
+        cout<<-1<<endl;
+        return 0;
+    }
+    cout<<ans<<endl;
    
 
     return 0;

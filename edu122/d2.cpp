@@ -112,40 +112,66 @@ template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i
 template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 //KnightMareVoid
+int dp[12005];
+
 
 int solve(){
-    int hc,dc,hm,dm;
-    int w,a,k;
-    cin>>hc>>dc;
-    cin>>hm>>dm;
-    cin>>k>>w>>a;
-    int f=0;
-    
-   double x1=(hm*1.0)/dc*1.0;
-   double x2=(hc*1.0)/dm*1.0;
-   for(int i=0;i<=k;i++){
-       double x=(double)i*w*1.0;
-       double y=(double)(k-i)*a*1.0;
-       x1=(double)(hm*1.0)/(dc+x)*1.0;
-       x2=(double)(hc*1.0+y*1.0)/(dm*1.0);
-       int k1=ceil(x1);
-       int k2=ceil(x2);
-       //debug(x1);
-       //debug(x2);
-       if(k1-k2<1){
-           f=1;
-       }
-      
-
-   }
-     if(f){
-            cout<<"YES"<<endl;
-        }
-        else{
-            cout<<"NO"<<endl;
-        }
+    int n,k;
+    cin>>n>>k;
    
+    int a[n];
+    for(int i=0;i<n;i++)cin>>a[i];
+    int c[n];
+    for(int i=0;i<n;i++)cin>>c[i];
+     int ans[5001]={0};
+     memset(ans,0x3f,sizeof(ans));
+     ans[1]=0;
+    for(int i=1;i<1001;i++){
+        for(int j=1;j<=i;j++){
+            int p=i/j;
+            ans[i+p]=min(ans[i]+1,ans[i+p]);
+        }
 
+    }
+    vector<int> b(n);
+    int s=0;
+    for(int i=0;i<n;i++){
+        int d=1;
+        int c=0;
+        c=ans[a[i]];
+        s+=c;
+        b[i]=c;
+
+       
+       
+    }
+    //debug(b);
+    k=min(s,k);
+    memset(dp,0,sizeof(dp));
+    
+    for(int i=1;i<=n;i++){
+        for(int j=k;j>=b[i-1];j--){
+           //dp[i][j]=dp[i-1][j];
+                
+                    
+            
+                    dp[j]=max(dp[j-b[i-1]]+c[i-1],dp[j]);
+                    //cout<<i<<sp<<j<<sp<<dp[i][j]<<endl;
+
+                    //cout<<dp[i][j]<<endl;
+                
+                
+ 
+        
+    }
+    }
+    ll ans1=0;
+    for(int i=0;i<=k;i++){
+        ans1=max(1ll*dp[i],ans1);
+    }
+    cout<<ans1<<endl;
+    
+    //debug(b);
     return 0;
 
 }

@@ -113,38 +113,94 @@ template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_pr
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 //KnightMareVoid
 
+const int N=10001;
+int dp[101][N];
+int aux[101][N];
 int solve(){
-    int hc,dc,hm,dm;
-    int w,a,k;
-    cin>>hc>>dc;
-    cin>>hm>>dm;
-    cin>>k>>w>>a;
-    int f=0;
-    
-   double x1=(hm*1.0)/dc*1.0;
-   double x2=(hc*1.0)/dm*1.0;
-   for(int i=0;i<=k;i++){
-       double x=(double)i*w*1.0;
-       double y=(double)(k-i)*a*1.0;
-       x1=(double)(hm*1.0)/(dc+x)*1.0;
-       x2=(double)(hc*1.0+y*1.0)/(dm*1.0);
-       int k1=ceil(x1);
-       int k2=ceil(x2);
-       //debug(x1);
-       //debug(x2);
-       if(k1-k2<1){
-           f=1;
-       }
-      
-
-   }
-     if(f){
-            cout<<"YES"<<endl;
+    int n;
+    cin>>n;
+    int a[n];
+    int b[n];
+    int c[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    for(int i=0;i<n;i++){
+        cin>>b[i];
+    }
+    int s=0;
+    for(int i=0;i<n;i++){
+        if(a[i]<b[i])swap(a[i],b[i]);
+        c[i]=a[i]-b[i];
+        //debug(c[i]);
+        s+=c[i];
+    }
+    memset(dp,0,sizeof(dp));
+    mem1(aux);
+    dp[0][0]=1;
+    dp[0][c[0]]=1;
+    aux[0][c[0]]=0;
+    //debug(1);
+    int k=-1;
+    for(int i=1;i<n;i++){
+        for(int j=0;j<N;j++){
+            if(i>0){
+                dp[i][j]|=dp[i-1][j];
+                aux[i][j]=aux[i-1][j];
+            }
+            if(j-c[i]>=0){
+                dp[i][j]|=(dp[i-1][j-c[i]]);
+                aux[i][j]=i;
+            }
+        }
+    }
+    //debug(s);
+    int i;
+    for(i=s/2;i>=0;i--){
+        if(dp[n-1][i]==1){
+            break;
+        }
+    }
+    //debug(i);
+    vector<int> v;
+    int p=aux[n-1][i];
+    if(p!=-1){
+    i-=c[p];
+    if(p!=-1)v.pb(p);
+    }
+    while(p!=-1){
+        if(p>0){
+            //cout<<i<<sp<<p<<endl;
+            p=aux[p-1][i];
+            if(p!=-1){
+            v.pb(p);
+            i-=c[p];
+            }
         }
         else{
-            cout<<"NO"<<endl;
+            break;
         }
-   
+    }
+    //debug(v);
+    for(int j:v){
+        swap(a[j],b[j]);
+    }
+    ll ans=0;
+    for(int i=0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+            ans+=(a[i]+a[j])*(a[i]+a[j]);
+        }
+    }
+     for(int i=0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+            ans+=(b[i]+b[j])*(b[i]+b[j]);
+        }
+    }
+    cout<<ans<<endl;
+
+
+    
+
 
     return 0;
 

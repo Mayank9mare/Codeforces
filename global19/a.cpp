@@ -75,8 +75,8 @@
 #define precision(x) cout << fixed << setprecision(x);
 #define gcd(a,b)    __gcd((a),(b))
 #define lcm(a,b)    ((a)*(b)) / gcd((a),(b))
-#define endl "\n"
-#define int long long
+//#define endl "\n"
+//#define int long long
 const int dx[4]={1,0,0,-1}, dy[4]={0,1,-1,0};
 const int x_dir[]={-1,-1,-1,0,0,1,1,1};
 const int y_dir[]={-1,0,1,-1,1,-1,0,1};
@@ -114,38 +114,28 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 //KnightMareVoid
 
 int solve(){
-    int hc,dc,hm,dm;
-    int w,a,k;
-    cin>>hc>>dc;
-    cin>>hm>>dm;
-    cin>>k>>w>>a;
+    int n;
+    cin>>n;
+    int a[n];
+    int b[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        b[i]=a[i];
+    }
+    sort(a,a+n);
     int f=0;
-    
-   double x1=(hm*1.0)/dc*1.0;
-   double x2=(hc*1.0)/dm*1.0;
-   for(int i=0;i<=k;i++){
-       double x=(double)i*w*1.0;
-       double y=(double)(k-i)*a*1.0;
-       x1=(double)(hm*1.0)/(dc+x)*1.0;
-       x2=(double)(hc*1.0+y*1.0)/(dm*1.0);
-       int k1=ceil(x1);
-       int k2=ceil(x2);
-       //debug(x1);
-       //debug(x2);
-       if(k1-k2<1){
-           f=1;
-       }
-      
-
-   }
+    for(int i=0;i<n;i++){
+        if(a[i]!=b[i]){
+            f=1;
+            break;
+        }
+    }
      if(f){
             cout<<"YES"<<endl;
         }
         else{
             cout<<"NO"<<endl;
         }
-   
-
     return 0;
 
 }

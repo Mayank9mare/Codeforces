@@ -112,41 +112,68 @@ template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i
 template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 //KnightMareVoid
-
+int dp[200005];
 int solve(){
-    int hc,dc,hm,dm;
-    int w,a,k;
-    cin>>hc>>dc;
-    cin>>hm>>dm;
-    cin>>k>>w>>a;
-    int f=0;
+    memset(dp,0,sizeof(dp));
+    int n,p;
+    cin>>n>>p;
+    int a[n];
+    for(int i=0;i<n;i++)cin>>a[i];
+    sort(a,a+n);
+    set<int> s;
+
+    for(int i=0;i<n;i++){
+        int x=a[i];
+        int f=0;
+        while(x>0){
+            if(s.find(x)!=s.end()){
+                f=1;
+            }
+            if(x&1){
+                x/=2;
+            }
+            else if(x%4==0){
+                x/=4;
+            }
+            else{
+                break;
+            }
+        }
+        if(f==0){
+            s.insert(a[i]);
+        }
+
+
+    }
     
-   double x1=(hm*1.0)/dc*1.0;
-   double x2=(hc*1.0)/dm*1.0;
-   for(int i=0;i<=k;i++){
-       double x=(double)i*w*1.0;
-       double y=(double)(k-i)*a*1.0;
-       x1=(double)(hm*1.0)/(dc+x)*1.0;
-       x2=(double)(hc*1.0+y*1.0)/(dm*1.0);
-       int k1=ceil(x1);
-       int k2=ceil(x2);
-       //debug(x1);
-       //debug(x2);
-       if(k1-k2<1){
-           f=1;
-       }
-      
-
-   }
-     if(f){
-            cout<<"YES"<<endl;
-        }
-        else{
-            cout<<"NO"<<endl;
-        }
    
+    for(int x:s){
+        int z1=__lg(x);
 
-    return 0;
+        //debug(z1);
+        dp[z1]++;
+    }
+    int ans=dp[0];
+    //debug(ans);
+  
+  for(int i=1;i<p;i++){
+        if(i==1){
+            dp[i]+=dp[i-1];
+            dp[i]%=mod;
+            ans+=dp[i];
+            ans%=mod;
+            continue;
+        }
+        dp[i]+=(dp[i-1]);
+        dp[i]%=mod;
+        dp[i]+=(dp[i-2]);
+        dp[i]%=mod;
+        ans+=dp[i];
+        ans%=mod;
+    }
+    cout<<ans<<endl;
+
+   return 0;
 
 }
 
@@ -158,7 +185,8 @@ signed main()
     #endif
     
     minato;
-    w(t)
+    //preprocess();
+    //w(t)
     solve();
 
 

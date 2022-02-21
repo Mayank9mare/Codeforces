@@ -124,15 +124,13 @@ int solve(){
    double x1=(hm*1.0)/dc*1.0;
    double x2=(hc*1.0)/dm*1.0;
    for(int i=0;i<=k;i++){
-       double x=(double)i*w*1.0;
-       double y=(double)(k-i)*a*1.0;
-       x1=(double)(hm*1.0)/(dc+x)*1.0;
-       x2=(double)(hc*1.0+y*1.0)/(dm*1.0);
-       int k1=ceil(x1);
-       int k2=ceil(x2);
+       double x=i*w*1.0;
+       double y=(k-i)*a*1.0;
+       x1=hm*1.0/(dc+x)*1.0;
+       x2=(hc+y*1.0)/(dm*1.0);
        //debug(x1);
        //debug(x2);
-       if(k1-k2<1){
+       if(x1-x2<1.0){
            f=1;
        }
       

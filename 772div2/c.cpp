@@ -75,8 +75,8 @@
 #define precision(x) cout << fixed << setprecision(x);
 #define gcd(a,b)    __gcd((a),(b))
 #define lcm(a,b)    ((a)*(b)) / gcd((a),(b))
-#define endl "\n"
-#define int long long
+//#define endl "\n"
+//#define int long long
 const int dx[4]={1,0,0,-1}, dy[4]={0,1,-1,0};
 const int x_dir[]={-1,-1,-1,0,0,1,1,1};
 const int y_dir[]={-1,0,1,-1,1,-1,0,1};
@@ -114,37 +114,65 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
 //KnightMareVoid
 
 int solve(){
-    int hc,dc,hm,dm;
-    int w,a,k;
-    cin>>hc>>dc;
-    cin>>hm>>dm;
-    cin>>k>>w>>a;
-    int f=0;
-    
-   double x1=(hm*1.0)/dc*1.0;
-   double x2=(hc*1.0)/dm*1.0;
-   for(int i=0;i<=k;i++){
-       double x=(double)i*w*1.0;
-       double y=(double)(k-i)*a*1.0;
-       x1=(double)(hm*1.0)/(dc+x)*1.0;
-       x2=(double)(hc*1.0+y*1.0)/(dm*1.0);
-       int k1=ceil(x1);
-       int k2=ceil(x2);
-       //debug(x1);
-       //debug(x2);
-       if(k1-k2<1){
-           f=1;
-       }
-      
+    def(a,n);
+    int f1=0;
+    for(int i=0;i<n-1;i++){
+        if(a[i]>a[i+1]){
+            f1=1;
+            
+        }
+    }
+    if(f1==0){
+        cout<<0<<endl;
+        return 0;
+    }
 
-   }
-     if(f){
-            cout<<"YES"<<endl;
+    vector<pair<pll,ll>> v;
+    vector<pll> maxa(n);
+    vector<pll> mina(n);
+    ll p1=LONG_LONG_MIN;
+    ll p2=LONG_LONG_MAX;
+    int id1=-1;
+    int id2=-1;
+    for(int i=n-1;i>=0;i--){
+        maxa[i]={p1,id1};
+        mina[i]={p2,id2};
+        if(a[i]>p1){
+            id1=i;
+            p1=a[i];
         }
-        else{
-            cout<<"NO"<<endl;
+        if(a[i]<=p2){
+            p2=a[i];
+            id2=i;
         }
-   
+        
+
+
+    }
+    for(int i=0;i<n-2;i++){
+        ll k1=maxa[i].first;
+        ll k2=mina[i].first;
+        a[i]=k2-k1;
+        v.pb({{i,,max(maxa[i].second,mina[i].second)});
+
+    }
+    int f=0;
+    for(int i=0;i<n-1;i++){
+        if(a[i]>a[i+1]){
+            f=1;
+            break;
+        }
+
+    }
+    if(f){
+        cout<<-1<<endl;
+        return 0;
+    }
+    cout<<v.size()<<endl;
+    for(auto x:v){
+        cout<<x.first.first+1<<sp<<x.first.second+1<<sp<<x.second+1<<endl;
+    }
+
 
     return 0;
 

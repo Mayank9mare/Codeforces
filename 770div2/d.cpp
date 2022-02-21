@@ -75,8 +75,8 @@
 #define precision(x) cout << fixed << setprecision(x);
 #define gcd(a,b)    __gcd((a),(b))
 #define lcm(a,b)    ((a)*(b)) / gcd((a),(b))
-#define endl "\n"
-#define int long long
+//#define endl "\n"
+//#define int long long
 const int dx[4]={1,0,0,-1}, dy[4]={0,1,-1,0};
 const int x_dir[]={-1,-1,-1,0,0,1,1,1};
 const int y_dir[]={-1,0,1,-1,1,-1,0,1};
@@ -112,39 +112,78 @@ template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i
 template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 //KnightMareVoid
+int qry(int i,int j,int k){
+    cout<<"? "<<i<<sp<<j<<sp<<k<<endl;
+    int x;
+    cin>>x;
+    return x;
 
-int solve(){
-    int hc,dc,hm,dm;
-    int w,a,k;
-    cin>>hc>>dc;
-    cin>>hm>>dm;
-    cin>>k>>w>>a;
-    int f=0;
-    
-   double x1=(hm*1.0)/dc*1.0;
-   double x2=(hc*1.0)/dm*1.0;
-   for(int i=0;i<=k;i++){
-       double x=(double)i*w*1.0;
-       double y=(double)(k-i)*a*1.0;
-       x1=(double)(hm*1.0)/(dc+x)*1.0;
-       x2=(double)(hc*1.0+y*1.0)/(dm*1.0);
-       int k1=ceil(x1);
-       int k2=ceil(x2);
-       //debug(x1);
-       //debug(x2);
-       if(k1-k2<1){
-           f=1;
-       }
-      
 
-   }
-     if(f){
-            cout<<"YES"<<endl;
-        }
-        else{
-            cout<<"NO"<<endl;
-        }
+}
+void printans(int x,int y){
+    int z;
+    cout<<"! "<<x<<sp<<y<<endl;
+    //cin>>z;
+    return;
    
+
+}
+int solve(){
+    int n;
+    cin>>n;
+    int x=1;
+    int y=2;
+    int p1=-1;
+    int j=-1;
+    for(int i=3;i<=n;i++){
+        int z=qry(x,y,i);
+         if(z==-1){
+            return 0;
+        }
+        if(z>p1){
+            p1=z;
+            j=i;
+        }
+
+    }
+    //assuming i is minimum
+    for(int i=3;i<=n;i++){
+        if(i==j)continue;
+        int z=qry(x,j,i);
+        if(z==-1){
+            return 0;
+        }
+        if(z>p1){
+            p1=z;
+            y=i;
+        }
+    }
+    // either x,y,j is 0
+    int w;
+    for(int i=1;i<=n;i++){
+        if(x!=i && y!=i && j!=i){
+            w=i;
+            break;
+        }
+    }
+    int z=qry(x,y,w);
+    if(z==p1){
+        printans(x,y);
+        return 0;
+    }
+    z=qry(x,j,w);
+    if(z==p1){
+        printans(x,j);
+        return 0;
+    }
+    z=qry(y,j,w);
+    if(z==p1){
+        printans(y,j);
+        return 0;
+    }
+    
+
+
 
     return 0;
 
@@ -156,6 +195,7 @@ signed main()
     #ifndef KNIGHTMARE
     freopen("Error.txt", "w", stderr);
     #endif
+    cout.flush();
     
     minato;
     w(t)
